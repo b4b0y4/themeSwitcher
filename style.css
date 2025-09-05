@@ -22,12 +22,11 @@ body {
   cursor: pointer;
   padding: 0;
   display: inline-block;
-  #theme-btn svg {
+  svg {
     display: none;
   }
 }
 
-body[data-selected-theme="system"] #theme-system,
 body[data-selected-theme="light"] #theme-dark,
 body[data-selected-theme="dark"] #theme-light {
   display: block;
