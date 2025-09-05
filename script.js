@@ -2,11 +2,6 @@ const themeBtn = document.getElementById("theme-btn");
 const body = document.body;
 const themes = ["light", "dark"];
 
-const themeColors = {
-  light: "#fff",
-  dark: "#000",
-};
-
 const getSystemTheme = () => {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0;
 };
