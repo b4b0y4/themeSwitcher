@@ -44,10 +44,6 @@ That's it! The theme button is self-contained and will automatically apply the t
       cursor: pointer;
       padding: 0;
       color: var(--color-txt);
-      display: inline-flex;
-      align-items: center;
-      vertical-align: middle;
-      gap: 0.25rem;
       svg {
         display: none;
       }

@@ -22,10 +22,6 @@ body {
   cursor: pointer;
   padding: 0;
   color: var(--color-txt);
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  gap: 0.25rem;
   svg {
     display: none;
   }
