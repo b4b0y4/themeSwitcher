@@ -2,7 +2,6 @@ const themeBtn = document.getElementById("theme-btn");
 const body = document.body;
 const themes = ["light", "dark"];
 
-// Theme colors for potential theme-color meta tag updates
 const themeColors = {
   light: "#fff",
   dark: "#000",
@@ -18,11 +17,9 @@ const getCurrentTheme = () => {
 };
 
 const updateThemeColor = (theme) => {
-  // Remove existing theme-color meta tags
   const existingMetas = document.querySelectorAll('meta[name="theme-color"]');
   existingMetas.forEach((meta) => meta.remove());
 
-  // Add new theme-color meta tag
   const meta = document.createElement("meta");
   meta.name = "theme-color";
   meta.content = themeColors[theme];
@@ -42,7 +39,6 @@ const applyTheme = () => {
   updateThemeColor(theme);
 };
 
-// Single click: cycle through manual themes
 themeBtn.addEventListener("click", () => {
   const currentIndex = getCurrentTheme();
   const nextTheme = themes[(currentIndex + 1) % themes.length];
@@ -50,23 +46,19 @@ themeBtn.addEventListener("click", () => {
   applyTheme();
 });
 
-// Double click: reset to system preference
 themeBtn.addEventListener("dblclick", (e) => {
-  e.preventDefault(); // Prevent the single click from firing
+  e.preventDefault();
   localStorage.removeItem("themeOverride");
   applyTheme();
 });
 
-// Listen for system theme changes
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", () => {
-    // Only apply if we're currently following system preference
     if (!localStorage.getItem("themeOverride")) {
       applyTheme();
     }
   });
 
-// Initialize theme on page load
 applyTheme();
 document.documentElement.classList.remove("no-flash");
