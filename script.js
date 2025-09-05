@@ -1,8 +1,5 @@
 const themeBtn = document.getElementById("theme-btn");
 const body = document.body;
-const currentThemeSpan = document.getElementById("current-theme");
-const themeSourceSpan = document.getElementById("theme-source");
-
 const themes = ["light", "dark"];
 
 // Theme colors for potential theme-color meta tag updates
