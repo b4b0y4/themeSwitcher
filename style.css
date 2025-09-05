@@ -76,3 +76,7 @@ body {
   opacity: 1;
   transform: rotate(0deg);
 }
+
+.no-flash {
+  visibility: hidden;
+}

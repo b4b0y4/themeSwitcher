@@ -69,3 +69,4 @@ window
 
 // Initialize theme on page load
 applyTheme();
+document.documentElement.classList.remove("no-flash");
