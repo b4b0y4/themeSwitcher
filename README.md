@@ -69,36 +69,34 @@ const themeBtn = document.getElementById("theme-btn");
 const body = document.body;
 
 const themes = ["light", "dark"];
-let currentTheme;
 
-// Check for saved theme in localStorage
-const savedTheme = localStorage.getItem("theme");
+const getSystemTheme = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0;
+};
 
-if (savedTheme) {
-  currentTheme = themes.indexOf(savedTheme);
-} else {
-  // Set initial theme based on system preference
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (prefersDark) {
-    currentTheme = 1; // dark
-  } else {
-    currentTheme = 0; // light
-  }
-}
+const getCurrentTheme = () => {
+  const override = localStorage.getItem("themeOverride");
+  return override ? themes.indexOf(override) : getSystemTheme();
+};
 
 const applyTheme = () => {
-  const theme = themes[currentTheme];
-  localStorage.setItem("theme", theme);
+  const themeIndex = getCurrentTheme();
+  const theme = themes[themeIndex];
   body.dataset.selectedTheme = theme;
   body.dataset.theme = theme;
 };
 
 themeBtn.addEventListener("click", () => {
-  currentTheme = (currentTheme + 1) % themes.length;
+  const currentIndex = getCurrentTheme();
+  const nextTheme = themes[(currentIndex + 1) % themes.length];
+  localStorage.setItem("themeOverride", nextTheme);
   applyTheme();
 });
 
-// Apply initial theme
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", applyTheme);
+
 applyTheme();
 </script>
 ```
