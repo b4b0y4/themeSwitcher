@@ -21,6 +21,7 @@ body {
   background: none;
   cursor: pointer;
   padding: 0;
+  color: var(--color-txt);
   display: inline-block;
   svg {
     display: none;

@@ -43,6 +43,7 @@ That's it! The theme button is self-contained and will automatically apply the t
       background: none;
       cursor: pointer;
       padding: 0;
+      color: var(--color-txt);
       display: inline-block;
       svg {
         display: none;
@@ -57,10 +58,10 @@ That's it! The theme button is self-contained and will automatically apply the t
 
 <button id="theme-btn">
     <svg id="theme-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10" fill="white" />
+      <circle cx="12" cy="12" r="10" fill="currentColor" />
     </svg>
     <svg id="theme-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10" fill="black" />
+      <circle cx="12" cy="12" r="10" fill="currentColor" />
     </svg>
 </button>
 
