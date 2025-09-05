@@ -22,12 +22,57 @@ body {
   cursor: pointer;
   padding: 0;
   color: var(--color-txt);
+  position: relative;
   svg {
-    display: none;
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-body[data-selected-theme="light"] #theme-dark,
-body[data-selected-theme="dark"] #theme-light {
-  display: block;
+/* Light mode: show sun, hide moon and monitor */
+#theme-light {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+#theme-dark {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+#theme-system {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+/* Dark mode: show moon, hide sun and monitor */
+[data-selected-theme="dark"] #theme-light {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+[data-selected-theme="dark"] #theme-dark {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+[data-selected-theme="dark"] #theme-system {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+/* System mode: show monitor, hide sun and moon */
+[data-theme-source="system"] #theme-light {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+[data-theme-source="system"] #theme-dark {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+[data-theme-source="system"] #theme-system {
+  opacity: 1;
+  transform: rotate(0deg);
 }
