@@ -16,7 +16,7 @@ const applyTheme = () => {
   const isSystem = !localStorage.getItem("themeOverride");
 
   document.body.dataset.selectedTheme = theme;
-  document.documentElement.setAttribute("data-theme", theme);
+  document.body.dataset.theme = theme;
   document.body.dataset.themeSource = isSystem ? "system" : "manual";
 };
 
@@ -40,3 +40,5 @@ window
       applyTheme();
     }
   });
+
+applyTheme();

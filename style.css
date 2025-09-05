@@ -3,7 +3,7 @@
   --color-txt: #000;
 }
 
-:root[data-theme="dark"] {
+[data-theme="dark"] {
   --color-bg: #000;
   --color-txt: #fff;
 }
@@ -34,7 +34,6 @@ body {
   }
 }
 
-/* Light mode: show sun, hide moon and monitor */
 #theme-light {
   opacity: 1;
   transform: rotate(0deg);
@@ -50,7 +49,6 @@ body {
   transform: rotate(-90deg);
 }
 
-/* Dark mode: show moon, hide sun and monitor */
 [data-selected-theme="dark"] #theme-light {
   opacity: 0;
   transform: rotate(90deg);
@@ -66,7 +64,6 @@ body {
   transform: rotate(90deg);
 }
 
-/* System mode: show monitor, hide sun and moon */
 [data-theme-source="system"] #theme-light {
   opacity: 0;
   transform: rotate(-90deg);
@@ -80,8 +77,4 @@ body {
 [data-theme-source="system"] #theme-system {
   opacity: 1;
   transform: rotate(0deg);
-}
-
-.no-flash {
-  visibility: hidden;
 }
