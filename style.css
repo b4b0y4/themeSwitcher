@@ -3,7 +3,7 @@
   --color-txt: #000;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --color-bg: #000;
   --color-txt: #fff;
 }
