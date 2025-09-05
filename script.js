@@ -16,17 +16,6 @@ const getCurrentTheme = () => {
   return override ? themes.indexOf(override) : getSystemTheme();
 };
 
-const updateThemeColor = (theme) => {
-  const existingMetas = document.querySelectorAll('meta[name="theme-color"]');
-  existingMetas.forEach((meta) => meta.remove());
-
-  const meta = document.createElement("meta");
-  meta.name = "theme-color";
-  meta.content = themeColors[theme];
-  meta.media = `(prefers-color-scheme: ${theme})`;
-  document.head.appendChild(meta);
-};
-
 const applyTheme = () => {
   const themeIndex = getCurrentTheme();
   const theme = themes[themeIndex];
@@ -35,8 +24,6 @@ const applyTheme = () => {
   body.dataset.selectedTheme = theme;
   body.dataset.theme = theme;
   body.dataset.themeSource = isSystem ? "system" : "manual";
-
-  updateThemeColor(theme);
 };
 
 themeBtn.addEventListener("click", () => {
