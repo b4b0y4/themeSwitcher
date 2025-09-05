@@ -1,5 +1,4 @@
 const themeBtn = document.getElementById("theme-btn");
-const body = document.body;
 const themes = ["light", "dark"];
 
 const getSystemTheme = () => {
@@ -16,9 +15,9 @@ const applyTheme = () => {
   const theme = themes[themeIndex];
   const isSystem = !localStorage.getItem("themeOverride");
 
-  body.dataset.selectedTheme = theme;
-  body.dataset.theme = theme;
-  body.dataset.themeSource = isSystem ? "system" : "manual";
+  document.body.dataset.selectedTheme = theme;
+  document.body.dataset.theme = theme;
+  document.body.dataset.themeSource = isSystem ? "system" : "manual";
 };
 
 themeBtn.addEventListener("click", () => {
