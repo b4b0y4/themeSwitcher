@@ -147,49 +147,65 @@ That's it! The theme button is self-contained and will automatically apply the t
 </button>
 
 <script>
-  const themeBtn = document.getElementById("theme-btn");
-  const themes = ["light", "dark"];
+const themeManager = {
+  themes: ["light", "dark"],
 
-  const getSystemTheme = () => {
-    return window.matchMedia("(prefers-color-scheme: dark)"   ).matches ? 1 : 0;
-  };
+  getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0;
+  },
 
-  const getCurrentTheme = () => {
+  getCurrentTheme() {
     const override = localStorage.getItem("themeOverride");
-    return override ? themes.indexOf(override) : getSystemTheme();
-  };
+    return override ? this.themes.indexOf(override) : this.getSystemTheme();
+  },
 
-  const applyTheme = () => {
-    const themeIndex = getCurrentTheme();
-    const theme = themes[themeIndex];
+  applyTheme() {
+    const themeIndex = this.getCurrentTheme();
+    const theme = this.themes[themeIndex];
     const isSystem = !localStorage.getItem("themeOverride");
-
     document.body.dataset.selectedTheme = theme;
     document.body.dataset.theme = theme;
-    document.body.dataset.themeSource = isSystem ? "system" :     "manual";
-  };
+    document.body.dataset.themeSource = isSystem ? "system" : "manual";
+  },
 
-  themeBtn.addEventListener("click", () => {
-    const currentIndex = getCurrentTheme();
-    const nextTheme = themes[(currentIndex + 1) % themes.length];
+  cycleTheme() {
+    const currentIndex = this.getCurrentTheme();
+    const nextTheme = this.themes[(currentIndex + 1) % this.themes.length];
     localStorage.setItem("themeOverride", nextTheme);
-    applyTheme();
-  });
+    this.applyTheme();
+  },
 
-  themeBtn.addEventListener("dblclick", (e) => {
-    e.preventDefault();
+  resetToSystem() {
     localStorage.removeItem("themeOverride");
-    applyTheme();
-  });
+    this.applyTheme();
+  },
+};
 
+const handleThemeClick = () => {
+  themeManager.cycleTheme();
+};
+
+const handleThemeDoubleClick = (e) => {
+  e.preventDefault();
+  themeManager.resetToSystem();
+};
+
+const handleSystemThemeChange = () => {
+  if (!localStorage.getItem("themeOverride")) {
+    themeManager.applyTheme();
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const themeBtn = document.getElementById("theme-btn");
+  themeBtn.addEventListener("click", handleThemeClick);
+  themeBtn.addEventListener("dblclick", handleThemeDoubleClick);
   window
     .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      if (!localStorage.getItem("themeOverride")) {
-        applyTheme();
-      }
-    });
+    .addEventListener("change", handleSystemThemeChange);
 
-  applyTheme();
+  themeManager.applyTheme();
+  document.getElementById("year").textContent = new Date().getFullYear();
+});
 </script>
 ```
