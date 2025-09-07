@@ -4,9 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Theme Switcher</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
   </head>
   <body>
+    <style>
+      :root {
+        --color-bg: #fff;
+        --color-txt: #000;
+      }
+
+      [data-theme="dark"] {
+        --color-bg: #000;
+        --color-txt: #fff;
+      }
+
+      body {
+        background: var(--color-bg);
+        color: var(--color-txt);
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+    </style>
     <button id="theme-btn">
       <svg
         id="theme-light"
@@ -48,6 +67,6 @@
         <line x1="8" y1="11.33" x2="8" y2="14" />
       </svg>
     </button>
-    <script src="script.js"></script>
+    <script src="theme.js"></script>
   </body>
 </html>

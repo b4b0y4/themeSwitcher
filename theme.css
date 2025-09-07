@@ -1,20 +1,3 @@
-:root {
-  --color-bg: #fff;
-  --color-txt: #000;
-}
-
-[data-theme="dark"] {
-  --color-bg: #000;
-  --color-txt: #fff;
-}
-
-body {
-  background: var(--color-bg);
-  color: var(--color-txt);
-  transition:
-    background 0.3s,
-    color 0.3s;
-}
 #theme-btn {
   border: 0;
   background: 0;
