@@ -1,17 +1,19 @@
 const themeManager = {
   themes: ["light", "dark"],
   sys: () => (matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0),
-  cur: () =>
-    localStorage.themeOverride
-      ? themeManager.themes.indexOf(localStorage.themeOverride)
-      : themeManager.sys(),
+  cur() {
+    return localStorage.themeOverride
+      ? this.themes.indexOf(localStorage.themeOverride)
+      : this.sys();
+  },
   apply() {
-    let override = localStorage.themeOverride,
-      idx = this.cur(),
-      theme = this.themes[idx];
-    document.body.dataset.theme = theme;
-    document.body.dataset.themeSource = override ? "manual" : "system";
-    document.body.dataset.selectedTheme = override ? theme : "";
+    let o = localStorage.themeOverride,
+      t = this.themes[this.cur()];
+    Object.assign(document.body.dataset, {
+      theme: t,
+      themeSource: o ? "manual" : "system",
+      selectedTheme: o ? t : "",
+    });
   },
   cycle() {
     localStorage.themeOverride = this.themes[(this.cur() + 1) % 2];
