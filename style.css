@@ -9,72 +9,33 @@
 }
 
 body {
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-txt);
   transition:
-    background-color 0.3s,
+    background 0.3s,
     color 0.3s;
 }
-
 #theme-btn {
-  border: none;
-  background: none;
+  border: 0;
+  background: 0;
   cursor: pointer;
-  padding: 0;
-  color: var(--color-txt);
-  position: relative;
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
-    position: absolute;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  color: var(--color-txt);
+  position: relative;
 }
-
-#theme-light {
-  opacity: 1;
-  transform: rotate(0deg);
-}
-
-#theme-dark {
+#theme-btn svg {
+  position: absolute;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: rotate(-90deg);
 }
-
-#theme-system {
-  opacity: 0;
-  transform: rotate(-90deg);
-}
-
-[data-selected-theme="dark"] #theme-light {
-  opacity: 0;
-  transform: rotate(90deg);
-}
-
-[data-selected-theme="dark"] #theme-dark {
-  opacity: 1;
-  transform: rotate(0deg);
-}
-
-[data-selected-theme="dark"] #theme-system {
-  opacity: 0;
-  transform: rotate(90deg);
-}
-
-[data-theme-source="system"] #theme-light {
-  opacity: 0;
-  transform: rotate(-90deg);
-}
-
-[data-theme-source="system"] #theme-dark {
-  opacity: 0;
-  transform: rotate(90deg);
-}
-
+[data-selected-theme="light"][data-theme-source="manual"] #theme-light,
+[data-selected-theme="dark"][data-theme-source="manual"] #theme-dark,
 [data-theme-source="system"] #theme-system {
   opacity: 1;
-  transform: rotate(0deg);
+  transform: rotate(0);
 }

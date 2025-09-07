@@ -1,60 +1,34 @@
 const themeManager = {
   themes: ["light", "dark"],
-
-  getSystemTheme() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0;
-  },
-
-  getCurrentTheme() {
-    const override = localStorage.getItem("themeOverride");
-    return override ? this.themes.indexOf(override) : this.getSystemTheme();
-  },
-
-  applyTheme() {
-    const themeIndex = this.getCurrentTheme();
-    const theme = this.themes[themeIndex];
-    const isSystem = !localStorage.getItem("themeOverride");
-    document.body.dataset.selectedTheme = theme;
+  sys: () => (matchMedia("(prefers-color-scheme: dark)").matches ? 1 : 0),
+  cur: () =>
+    localStorage.themeOverride
+      ? themeManager.themes.indexOf(localStorage.themeOverride)
+      : themeManager.sys(),
+  apply() {
+    let override = localStorage.themeOverride,
+      idx = this.cur(),
+      theme = this.themes[idx];
     document.body.dataset.theme = theme;
-    document.body.dataset.themeSource = isSystem ? "system" : "manual";
+    document.body.dataset.themeSource = override ? "manual" : "system";
+    document.body.dataset.selectedTheme = override ? theme : "";
   },
-
-  cycleTheme() {
-    const currentIndex = this.getCurrentTheme();
-    const nextTheme = this.themes[(currentIndex + 1) % this.themes.length];
-    localStorage.setItem("themeOverride", nextTheme);
-    this.applyTheme();
+  cycle() {
+    localStorage.themeOverride = this.themes[(this.cur() + 1) % 2];
+    this.apply();
   },
-
-  resetToSystem() {
+  reset() {
     localStorage.removeItem("themeOverride");
-    this.applyTheme();
+    this.apply();
   },
 };
-
-const handleThemeClick = () => {
-  themeManager.cycleTheme();
-};
-
-const handleThemeDoubleClick = (e) => {
-  e.preventDefault();
-  themeManager.resetToSystem();
-};
-
-const handleSystemThemeChange = () => {
-  if (!localStorage.getItem("themeOverride")) {
-    themeManager.applyTheme();
-  }
-};
-
 document.addEventListener("DOMContentLoaded", () => {
-  const themeBtn = document.getElementById("theme-btn");
-  themeBtn.addEventListener("click", handleThemeClick);
-  themeBtn.addEventListener("dblclick", handleThemeDoubleClick);
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", handleSystemThemeChange);
-
-  themeManager.applyTheme();
-  document.getElementById("year").textContent = new Date().getFullYear();
+  let btn = document.getElementById("theme-btn");
+  btn.onclick = () => themeManager.cycle();
+  btn.ondblclick = (e) => (e.preventDefault(), themeManager.reset());
+  matchMedia("(prefers-color-scheme: dark)").addEventListener(
+    "change",
+    () => !localStorage.themeOverride && themeManager.apply(),
+  );
+  themeManager.apply();
 });
